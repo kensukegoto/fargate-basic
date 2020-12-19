@@ -1,5 +1,4 @@
-```
-## ALBはお金かかる？
+# ALBはお金かかる？
 
 ## タスクがrunningだと課金されるの？
 
@@ -24,14 +23,28 @@ SSHを扱うためのIAMロールが必要
 Activation Code   IU3u/EUVZFj7uTmQoqph
 Activation ID   42e9cb87-0a8f-4805-b8f2-e513b450af61
 
-```
-
 # コンテナにsshで入る
 
 ## 参考
 
 https://qiita.com/ryurock/items/fa18b25b1b38c9a0f113
 https://enokawa.hatenablog.jp/entry/2019/09/05/104545
+
+## 詰まったポイント
+
+- ssm-agentのコンテナへのインストール
+参考としたubuntuのコードcentosで動かすための変更方法がわからなかった
+- ssmインストール後、ログを適切な位置に配置する必要がある
+- アクティベーションの有効期限が切れていた
+- shellスクリプトが最初の業しか実行されていなかった
+expressをフォアグラウンドで実行してしまうなど、その先の記述が実行されないような書き方をしていた
+- centosイメージにはpythonが含まれているので参考リンクと違いpythonのインストールは不要
+- タスク定義のIAMロールでは、SSMへのアクセスを許可する
+下記2つは必須
+AmazonSSMManagedInstanceCore
+AmazonECSTaskExecutionRolePolicy
+
+## 手順
 
 - DockerImageにssm-agentをインストール
 - ハイブリッドアクティベーションを作成
@@ -42,11 +55,15 @@ https://enokawa.hatenablog.jp/entry/2019/09/05/104545
 シェルスクリプトを用意、シェルスクリプト中の変数はパラメーターストアのもの
 - 本当に入れるかの確認
 
-## 注意
 
-ssm-agentをコンテナに入れると、１コンテナ当たり約$5かかる
+# アクティベーションとは？
 
-## Dockerfileの注意
+SystemsManagerでshellログインするために必要なクレデンシャルのようなもの。アクティベーションコードとIDをAWSで作り、作成されたコードとIDを管理したいインスタンスに設定すると、SSMでインスタンス・コンテナへのshellログインが可能になる。
 
-Pythonをインストールする
-コンテナで使うssm-agentがpythonを必要としているため
+# EFSをアタッチ
+
+## 参考
+
+https://zenn.dev/cumet04/articles/fargate-with-efs
+
+<img src="./image/efs-attach.png" width="640">

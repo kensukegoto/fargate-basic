@@ -6,9 +6,8 @@ var PORT = process.env.PORT || DEFAULT_PORT;
 
 // App
 var app = express();
-app.get('/', function (req, res) {
-  res.send('Hello Kensuke\n');
-});
+
+app.use('/', express.static(__dirname + '/public'));
 
 app.listen(PORT)
 console.log('Running on http://localhost:' + PORT);
