@@ -20,8 +20,10 @@ https://dev.classmethod.jp/articles/efs-fargate/
 
 SSHを扱うためのIAMロールが必要
 
-Activation Code   IU3u/EUVZFj7uTmQoqph
-Activation ID   42e9cb87-0a8f-4805-b8f2-e513b450af61
+```
+Activation Code   IU3u******
+Activation ID   42e9c******
+```
 
 # コンテナにsshで入る
 
