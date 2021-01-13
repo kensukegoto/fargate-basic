@@ -66,4 +66,10 @@ SystemsManagerでshellログインするために必要なクレデンシャル�
 
 https://zenn.dev/cumet04/articles/fargate-with-efs
 
+## セキュリティグループ
+
+コンテナとEFSに同じセキュリティグループを割り当てる。NFS（2049）のインバウンドを許可する。
+
+## 参考画像
+
 <img src="./image/efs-attach.png" width="640">
